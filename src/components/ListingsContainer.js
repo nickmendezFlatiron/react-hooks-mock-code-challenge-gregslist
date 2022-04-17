@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer() {
+function ListingsContainer({searchValue}) {
   const [allListings , setAllListings] = useState([])
 
   useEffect(()=>{
@@ -16,8 +16,11 @@ function ListingsContainer() {
     setAllListings(updatedListing)
   }
 
-  const renderListings = allListings.map(listing => <ListingCard listing={listing} onDeleteListing={handleDeleteListing}/>
+  const searchListings = allListings.filter(listing => listing.description.toLowerCase().includes(searchValue.toLowerCase()))
+
+  const renderListings = searchListings.map(listing => <ListingCard listing={listing} onDeleteListing={handleDeleteListing}/>
   )
+
 
   return (
     <main>
